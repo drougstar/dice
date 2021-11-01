@@ -61,33 +61,38 @@ const scoreP0 = document.querySelector("#score--0"),
     diceNumber = 0;
     diceNumberStr = "";
     dice.classList.add("hidden");
+    playing = 1;
   };
-let currentPlayer, currentScore, player, diceNumber, diceNumberStr;
+let currentPlayer, currentScore, player, diceNumber, diceNumberStr, playing;
 // Starting Conditions
 starting();
 
 // Rolling Dice When clicked
 buttonRoll.addEventListener("click", function () {
-  // Creating a random variable
-  diceNumber = Math.trunc(Math.random() * 6) + 1;
-  diceNumberStr = `dice-${diceNumber}.png`;
-  // Calling an image and revealing dice
-  dice.src = diceNumberStr;
-  dice.classList.remove("hidden");
+  if (playing) {
+    // Creating a random variable
+    diceNumber = Math.trunc(Math.random() * 6) + 1;
+    diceNumberStr = `dice-${diceNumber}.png`;
+    // Calling an image and revealing dice
+    dice.src = diceNumberStr;
+    dice.classList.remove("hidden");
 
-  // Run function to check if dice is not 1
-  currentPlayer = checkDice();
+    // Run function to check if dice is not 1
+    currentPlayer = checkDice();
+  }
 });
-
 // Holding Score
 buttonHold.addEventListener("click", function () {
-  currentScore.textContent =
-    Number(currentScore.textContent) + Number(currentPlayer.textContent);
-  currentPlayer.textContent = 0;
-  if (Number(currentScore.textContent) >= 100) {
-    player.classList.add("player--winner");
-    dice.classList.add("hidden");
-  } else currentPlayer = switchPlayer();
+  if (playing) {
+    currentScore.textContent =
+      Number(currentScore.textContent) + Number(currentPlayer.textContent);
+    currentPlayer.textContent = 0;
+    if (Number(currentScore.textContent) >= 10) {
+      player.classList.add("player--winner");
+      dice.classList.add("hidden");
+      playing = 0;
+    } else currentPlayer = switchPlayer();
+  }
 });
 
 // Newgame
