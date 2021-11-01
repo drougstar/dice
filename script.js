@@ -87,7 +87,7 @@ buttonHold.addEventListener("click", function () {
     currentScore.textContent =
       Number(currentScore.textContent) + Number(currentPlayer.textContent);
     currentPlayer.textContent = 0;
-    if (Number(currentScore.textContent) >= 10) {
+    if (Number(currentScore.textContent) >= 100) {
       player.classList.add("player--winner");
       dice.classList.add("hidden");
       playing = 0;
